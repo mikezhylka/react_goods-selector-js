@@ -22,11 +22,8 @@ export const App = () => {
   return (
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
-        {selectedGood === ''
-          ? 'No goods selected'
-          : `${selectedGood} is selected`}
-
-        {selectedGood !== '' && (
+        {!selectedGood ? 'No goods selected' : `${selectedGood} is selected`}
+        {!!selectedGood && (
           <button
             onClick={() => {
               setGood('');
@@ -40,35 +37,39 @@ export const App = () => {
 
       <table className="table">
         <tbody>
-          {goods.map(good => (
-            <tr
-              className={cn({
-                'has-background-success-light': selectedGood === good,
-              })}
-              data-cy="Good"
-              key={goods.indexOf(good)}
-            >
-              <td>
-                <button
-                  data-cy={selectedGood === good ? 'RemoveButton' : 'AddButton'}
-                  type="button"
-                  className={
-                    selectedGood === good ? 'button is-info' : 'button'
-                  }
-                  onClick={() => {
-                    setGood(good);
+          {goods.map(good => {
+            const currentGoodIsActive = selectedGood === good;
 
-                    if (selectedGood === good) {
-                      setGood('');
+            return (
+              <tr
+                className={cn({
+                  'has-background-success-light': currentGoodIsActive,
+                })}
+                data-cy="Good"
+                key={goods.indexOf(good)}
+              >
+                <td>
+                  <button
+                    data-cy={currentGoodIsActive ? 'RemoveButton' : 'AddButton'}
+                    type="button"
+                    className={
+                      currentGoodIsActive ? 'button is-info' : 'button'
                     }
-                  }}
-                >
-                  {selectedGood === good ? '-' : '+'}
-                </button>
-              </td>
-              <td className="is-vcentered">{good}</td>
-            </tr>
-          ))}
+                    onClick={() => {
+                      setGood(good);
+
+                      if (currentGoodIsActive) {
+                        setGood('');
+                      }
+                    }}
+                  >
+                    {currentGoodIsActive ? '-' : '+'}
+                  </button>
+                </td>
+                <td className="is-vcentered">{good}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </main>
