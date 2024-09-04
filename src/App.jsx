@@ -46,7 +46,7 @@ export const App = () => {
                   'has-background-success-light': currentGoodIsActive,
                 })}
                 data-cy="Good"
-                key={goods.indexOf(good)}
+                key={good}
               >
                 <td>
                   <button
@@ -56,11 +56,7 @@ export const App = () => {
                       currentGoodIsActive ? 'button is-info' : 'button'
                     }
                     onClick={() => {
-                      setGood(good);
-
-                      if (currentGoodIsActive) {
-                        setGood('');
-                      }
+                      setGood(currentGoodIsActive ? '' : good);
                     }}
                   >
                     {currentGoodIsActive ? '-' : '+'}
