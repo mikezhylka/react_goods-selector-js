@@ -66,7 +66,9 @@ export const App = () => {
                     {currentGoodIsActive ? '-' : '+'}
                   </button>
                 </td>
-                <td className="is-vcentered">{good}</td>
+                <td className="is-vcentered" data-cy="GoodTitle">
+                  {good}
+                </td>
               </tr>
             );
           })}
